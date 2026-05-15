@@ -45,7 +45,7 @@ const Login = () => {
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 scale-105"
         style={{ 
-          backgroundImage: 'url("/images/supreme-court-bg.png")',
+          backgroundImage: 'url("./images/supreme-court-bg.png")',
           filter: 'brightness(0.3) contrast(1.1) blur(8px)'
         }}
       />
