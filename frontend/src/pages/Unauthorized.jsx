@@ -95,7 +95,6 @@ const Unauthorized = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
