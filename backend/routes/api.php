@@ -105,6 +105,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:police,super_admin')->group(function () {
         Route::post('/firs', [FirController::class, 'store']);
         Route::put('/firs/{id}', [FirController::class, 'update']);
+        Route::delete('/firs/{id}', [FirController::class, 'destroy']);
         Route::post('/fir-evidences', [FirController::class, 'uploadEvidence']);
     });
 });

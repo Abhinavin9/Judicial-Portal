@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Shield, FileText, Calendar, MapPin, Upload, User, ChevronLeft, Clock, AlertCircle, ExternalLink, BadgeCheck } from 'lucide-react';
+import { Shield, FileText, Calendar, MapPin, Upload, User, ChevronLeft, Clock, AlertCircle, ExternalLink, BadgeCheck, Trash2 } from 'lucide-react';
 import Layout from '../../components/common/Layout';
 import api from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
@@ -37,6 +37,17 @@ const FirDetail = () => {
       setFir({ ...fir, status: newStatus });
     } catch (error) {
       console.error('Failed to update status', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to permanently delete this FIR record? This action cannot be undone.')) return;
+    try {
+      await api.delete(`/firs/${id}`);
+      navigate('/firs');
+    } catch (error) {
+      console.error('Failed to delete FIR', error);
+      alert('Failed to delete FIR record');
     }
   };
 
@@ -122,7 +133,7 @@ const FirDetail = () => {
         </div>
 
         {canManageFir && (
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Link 
               to={`/firs/${id}/edit`}
               className="flex items-center px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-2xl border border-white/10 font-bold text-sm transition-all"
@@ -130,6 +141,15 @@ const FirDetail = () => {
               <FileText className="h-4 w-4 mr-2" />
               EDIT FIR
             </Link>
+            {user?.role === 'super_admin' && (
+              <button 
+                onClick={handleDelete}
+                className="flex items-center px-6 py-3 bg-rose-600/10 hover:bg-rose-600/20 text-rose-500 rounded-2xl border border-rose-500/20 font-bold text-sm transition-all"
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                DELETE FIR
+              </button>
+            )}
             <div className="flex items-center gap-4 bg-white/5 p-2 rounded-2xl border border-white/10 backdrop-blur-xl">
                <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-4">Update Status:</span>
                <select 

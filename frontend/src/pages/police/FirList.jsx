@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Plus, Filter, Shield, Eye, Calendar, MapPin } from 'lucide-react';
+import { Search, Plus, Filter, Shield, Eye, Calendar, MapPin, Trash2, Edit } from 'lucide-react';
 import Layout from '../../components/common/Layout';
 import api from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 
-const FirRow = memo(({ fir }) => (
+const FirRow = memo(({ fir, user, onDelete }) => (
   <tr className="hover:bg-white/5 transition-colors border-b border-white/5 group">
     <td className="py-4 px-4 font-black text-primary-400">
       <Link to={`/firs/${fir.id}`} className="hover:text-primary-300 transition-colors">
@@ -38,13 +38,33 @@ const FirRow = memo(({ fir }) => (
       </span>
     </td>
     <td className="py-4 px-4 text-right">
-      <Link 
-        to={`/firs/${fir.id}`} 
-        className="inline-flex items-center p-2 text-primary-400 hover:bg-primary-500/10 rounded-xl transition-all"
-        title="View FIR Details"
-      >
-        <Eye className="h-4 w-4" />
-      </Link>
+      <div className="flex items-center justify-end gap-2">
+        <Link 
+          to={`/firs/${fir.id}`} 
+          className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-xl transition-all"
+          title="View FIR Details"
+        >
+          <Eye className="h-4 w-4" />
+        </Link>
+        {(user?.role === 'super_admin' || user?.role === 'police') && (
+          <>
+            <Link 
+              to={`/firs/${fir.id}?edit=true`} 
+              className="p-2 text-amber-500/70 hover:text-amber-400 hover:bg-amber-500/10 rounded-xl transition-all"
+              title="Edit FIR"
+            >
+              <Edit className="h-4 w-4" />
+            </Link>
+            <button 
+              onClick={() => onDelete(fir.id)}
+              className="p-2 text-rose-500/70 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-all"
+              title="Delete FIR"
+            >
+              <Trash2 className="h-4 w-4" />
+            </button>
+          </>
+        )}
+      </div>
     </td>
   </tr>
 ));
@@ -72,6 +92,18 @@ const FirList = () => {
       setLoading(false);
     }
   }, [search, user?.id, cacheKey]);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to permanently delete this FIR record? This action cannot be undone.')) return;
+    try {
+      await api.delete(`/firs/${id}`);
+      setFirs(prev => prev.filter(f => f.id !== id));
+      localStorage.removeItem(cacheKey); // Force refresh
+    } catch (error) {
+      console.error('Failed to delete FIR', error);
+      alert('Failed to delete FIR record');
+    }
+  };
 
   useEffect(() => {
     fetchFirs();
@@ -153,7 +185,12 @@ const FirList = () => {
                 </tr>
               ) : (
                 firs.map(fir => (
-                  <FirRow key={fir.id} fir={fir} />
+                  <FirRow 
+                    key={fir.id} 
+                    fir={fir} 
+                    user={user}
+                    onDelete={handleDelete}
+                  />
                 ))
               )}
             </tbody>

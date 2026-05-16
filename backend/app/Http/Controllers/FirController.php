@@ -194,4 +194,20 @@ class FirController extends Controller
             'evidence' => $evidence
         ], 201);
     }
+
+    public function destroy($id)
+    {
+        $user = Auth::user();
+        if (!$user->isSuperAdmin() && !$user->isPolice()) {
+            return response()->json(['message' => 'Access denied. Only Police or Super Admins can delete FIRs.'], 403);
+        }
+        
+        $fir = Fir::findOrFail($id);
+        $fir->delete();
+        Cache::flush();
+
+        return response()->json([
+            'message' => 'FIR deleted successfully'
+        ]);
+    }
 }
