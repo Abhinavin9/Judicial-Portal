@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Primary Demo Accounts (Simple Emails)
-        User::updateOrCreate(['email' => 'admin@judicialportal.com'], ['name' => 'Rahul Admin', 'password' => Hash::make('password123'), 'role' => 'super_admin', 'phone' => '+919876543210', 'is_active' => true]);
-        User::updateOrCreate(['email' => 'judge@judicialportal.com'], ['name' => 'Siddhu Judge', 'password' => Hash::make('password123'), 'role' => 'judge', 'phone' => '+919000000001', 'is_active' => true, 'court_id' => 'COURT-HYD-001']);
-        User::updateOrCreate(['email' => 'lawyer@judicialportal.com'], ['name' => 'Arjun Lawyer', 'password' => Hash::make('password123'), 'role' => 'lawyer', 'phone' => '+919111111111', 'is_active' => true, 'bar_number' => 'BAR-AP-2024-001']);
-        User::updateOrCreate(['email' => 'client@judicialportal.com'], ['name' => 'Abhi Client', 'password' => Hash::make('password123'), 'role' => 'client', 'phone' => '+919222222221', 'is_active' => true]);
-        User::updateOrCreate(['email' => 'police@judicialportal.com'], ['name' => 'Vikram Police', 'password' => Hash::make('password123'), 'role' => 'police', 'phone' => '+919333333331', 'is_active' => true]);
+        User::updateOrCreate(['email' => 'admin@judicialportal.com'], ['name' => 'Rahul (Admin)', 'password' => Hash::make('password123'), 'role' => 'super_admin', 'phone' => '+919876543210', 'is_active' => true]);
+        User::updateOrCreate(['email' => 'judge@judicialportal.com'], ['name' => 'Siddhu (Judge)', 'password' => Hash::make('password123'), 'role' => 'judge', 'phone' => '+919000000001', 'is_active' => true, 'court_id' => 'COURT-HYD-001']);
+        User::updateOrCreate(['email' => 'lawyer@judicialportal.com'], ['name' => 'Arjun (Lawyer)', 'password' => Hash::make('password123'), 'role' => 'lawyer', 'phone' => '+919111111111', 'is_active' => true, 'bar_number' => 'BAR-AP-2024-001']);
+        User::updateOrCreate(['email' => 'client@judicialportal.com'], ['name' => 'Abhi (Client)', 'password' => Hash::make('password123'), 'role' => 'client', 'phone' => '+919222222221', 'is_active' => true]);
+        User::updateOrCreate(['email' => 'police@judicialportal.com'], ['name' => 'Vikram (Police)', 'password' => Hash::make('password123'), 'role' => 'police', 'phone' => '+919333333331', 'is_active' => true]);
 
         // Additional Judges
         $judges = ['Ananya Rao', 'Justice Iyer', 'Hon. Dixit', 'Justice Reddy'];
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             User::updateOrCreate(
                 ['email' => strtolower(str_replace(' ', '', $name)) . '@judicialportal.com'],
                 [
-                    'name' => "Judge $name",
+                    'name' => "$name (Judge)",
                     'password' => Hash::make('password123'),
                     'role' => 'judge',
                     'phone' => '+9190000000' . ($index + 2),
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             User::updateOrCreate(
                 ['email' => strtolower(str_replace(' ', '', $name)) . '@judicialportal.com'],
                 [
-                    'name' => $name,
+                    'name' => "$name (Lawyer)",
                     'password' => Hash::make('password123'),
                     'role' => 'lawyer',
                     'phone' => '+9191111111' . ($index + 2),
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             User::updateOrCreate(
                 ['email' => strtolower(str_replace([' ', '-'], '', $name)) . '@judicialportal.com'],
                 [
-                    'name' => $name,
+                    'name' => "$name (Police)",
                     'password' => Hash::make('password123'),
                     'role' => 'police',
                     'phone' => '+919333333' . str_pad($index + 2, 3, '0', STR_PAD_LEFT),
