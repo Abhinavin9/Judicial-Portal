@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Scale, User, Mail, Lock, Phone, AlertCircle, ArrowRight, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import bgImage from '../assets/images/supreme-court-bg.png';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ const Register = () => {
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 scale-105"
         style={{ 
-          backgroundImage: 'url("/images/supreme-court-bg.png")',
+          backgroundImage: `url(${bgImage})`,
           filter: 'brightness(0.3) contrast(1.1) blur(8px)'
         }}
       />

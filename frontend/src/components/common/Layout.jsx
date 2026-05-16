@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 
 import { useAuth } from '../../contexts/AuthContext';
+import bgImage from '../../assets/images/supreme-court-bg.png';
 
 const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -28,11 +29,10 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen relative bg-gray-50 dark:bg-gray-950 overflow-x-hidden">
-      {/* Thematic Background Image */}
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-20"
         style={{ 
-          backgroundImage: 'url("/images/supreme-court-bg.png")',
+          backgroundImage: `url(${bgImage})`,
           filter: 'blur(4px)'
         }}
       />
