@@ -129,9 +129,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
                   {getFormattedName()}
                 </p>
-                <p className="text-[10px] text-primary-500 font-black uppercase tracking-tighter truncate">
-                  {user?.role?.replace('_', ' ')}
-                </p>
+                {!user?.name?.includes('(') && (
+                  <p className="text-[10px] text-primary-500 font-black uppercase tracking-tighter truncate">
+                    {user?.role?.replace('_', ' ')}
+                  </p>
+                )}
               </div>
             </div>
             <button
