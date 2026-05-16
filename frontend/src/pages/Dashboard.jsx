@@ -245,7 +245,7 @@ const Dashboard = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">Judicial Overview</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mt-2 font-medium italic">Welcome back, {user?.name}</p>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mt-2 font-medium italic">Welcome back, {user?.name} ({user?.role?.replace('_', ' ')})</p>
         </div>
         <div className="flex items-center gap-4 p-2 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
           <div className="h-12 w-12 rounded-xl bg-primary-600 flex items-center justify-center text-white shadow-lg">
@@ -336,8 +336,9 @@ const Dashboard = () => {
                   {user?.name?.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <p className="text-xl font-black text-gray-900 dark:text-white tracking-tight">{user?.name}</p>
-                  <p className="text-xs text-primary-500 font-black uppercase tracking-[0.2em] mt-1">{user?.role?.replace('_', ' ')}</p>
+                  <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
+                  {user?.name} <span className="text-[10px] text-primary-500 font-black uppercase tracking-tighter italic">({user?.role?.replace('_', ' ')})</span>
+                </p>
                 </div>
               </div>
             </div>
