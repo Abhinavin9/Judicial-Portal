@@ -354,9 +354,9 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <p className="text-xl font-black text-gray-900 dark:text-white tracking-tight">{getFormattedName()}</p>
-                  {!user?.name?.includes('(') && (
-                    <p className="text-xs text-primary-500 font-black uppercase tracking-[0.2em] mt-1">{user?.role?.replace('_', ' ')}</p>
-                  )}
+                  <p className="text-xs text-primary-500 font-black uppercase tracking-[0.2em] mt-1">
+                    {user?.role?.includes('admin') ? 'admin' : user?.role?.replace('_', ' ')}
+                  </p>
                 </div>
               </div>
             </div>
