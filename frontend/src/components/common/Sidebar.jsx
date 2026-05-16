@@ -109,7 +109,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
-                  {user?.name} <span className="text-[10px] text-primary-500 font-black uppercase tracking-tighter italic">({user?.role?.replace('_', ' ')})</span>
+                  {user?.name} <span className="text-[10px] text-primary-500 font-black tracking-tighter lowercase">({user?.role?.replace('_', ' ')})</span>
                 </p>
               </div>
             </div>
