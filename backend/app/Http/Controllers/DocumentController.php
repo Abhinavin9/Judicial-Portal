@@ -48,7 +48,7 @@ class DocumentController extends Controller
     {
         $validated = $request->validate([
             'case_id' => 'required|exists:cases,id',
-            'document_type' => 'required|in:petition,evidence,order,judgment,notice,affidavit,other',
+            'document_type' => 'required|in:petition,evidence,order,judgment,notice,affidavit,written_statement,other',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'file' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',

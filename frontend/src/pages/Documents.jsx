@@ -355,6 +355,14 @@ const Documents = () => {
                   >
                     {user?.role === 'client' ? (
                       <option value="evidence">Evidence</option>
+                    ) : user?.role === 'lawyer' ? (
+                      <>
+                        <option value="evidence">Evidence</option>
+                        <option value="petition">Petition</option>
+                        <option value="affidavit">Affidavit</option>
+                        <option value="written_statement">Written Statement</option>
+                        <option value="other">Other</option>
+                      </>
                     ) : (
                       <>
                         <option value="evidence">Evidence</option>
