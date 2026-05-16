@@ -19,6 +19,24 @@ import { useAuth } from '../../contexts/AuthContext';
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
   const { user, logout } = useAuth();
+  
+  const getFormattedName = () => {
+    if (!user?.name) return 'User';
+    // If name already contains brackets, return it
+    if (user.name.includes('(')) return user.name;
+    
+    const roleMap = {
+      'super_admin': 'Admin',
+      'court_admin': 'Admin',
+      'judge': 'Judge',
+      'lawyer': 'Lawyer',
+      'police': 'Police',
+      'client': 'Client'
+    };
+    
+    const roleLabel = roleMap[user.role] || user.role.replace('_', ' ');
+    return `${user.name} (${roleLabel})`;
+  };
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['super_admin', 'court_admin', 'judge', 'lawyer', 'clerk', 'client'] },
@@ -109,7 +127,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
-                  {user?.name}
+                  {getFormattedName()}
                 </p>
                 <p className="text-[10px] text-primary-500 font-black uppercase tracking-tighter truncate">
                   {user?.role?.replace('_', ' ')}
