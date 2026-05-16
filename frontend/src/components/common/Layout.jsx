@@ -28,9 +28,16 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen relative bg-gray-50 dark:bg-gray-950 overflow-x-hidden">
-      {/* Fast local CSS background instead of heavy external image */}
-      <div className="fixed inset-0 z-0 bg-gray-950">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black"></div>
+      {/* Thematic Background Image */}
+      <div 
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-20"
+        style={{ 
+          backgroundImage: 'url("/images/supreme-court-bg.png")',
+          filter: 'blur(4px)'
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-gray-950/80">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900/40 via-gray-950/90 to-black"></div>
       </div>
       
       {/* Role-based Gradient Overlay */}
